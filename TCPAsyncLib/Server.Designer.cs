@@ -36,11 +36,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblHeartbeatSend = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblMissed = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblMissed);
             this.groupBox1.Controls.Add(this.lblUpdate);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.pnlHeartbeat);
@@ -118,6 +120,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Send:";
             // 
+            // lblMissed
+            // 
+            this.lblMissed.AutoSize = true;
+            this.lblMissed.Location = new System.Drawing.Point(171, 46);
+            this.lblMissed.Name = "lblMissed";
+            this.lblMissed.Size = new System.Drawing.Size(40, 13);
+            this.lblMissed.TabIndex = 4;
+            this.lblMissed.Text = "update";
+            this.lblMissed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +158,7 @@
         private System.Windows.Forms.Label lblHeartbeatSend;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblUpdate;
+        private System.Windows.Forms.Label lblMissed;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace TCPAsyncLib
 {
-    partial class frmClient
+    partial class frmClient2
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblMissed = new System.Windows.Forms.Label();
             this.lblUpdate = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pnlHeartbeat = new System.Windows.Forms.Panel();
@@ -36,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblHeartbeatSend = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblMissed = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +56,16 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Heartbeat";
+            // 
+            // lblMissed
+            // 
+            this.lblMissed.AutoSize = true;
+            this.lblMissed.Location = new System.Drawing.Point(171, 46);
+            this.lblMissed.Name = "lblMissed";
+            this.lblMissed.Size = new System.Drawing.Size(40, 13);
+            this.lblMissed.TabIndex = 5;
+            this.lblMissed.Text = "update";
+            this.lblMissed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblUpdate
             // 
@@ -120,16 +130,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Send:";
             // 
-            // lblMissed
-            // 
-            this.lblMissed.AutoSize = true;
-            this.lblMissed.Location = new System.Drawing.Point(171, 46);
-            this.lblMissed.Name = "lblMissed";
-            this.lblMissed.Size = new System.Drawing.Size(40, 13);
-            this.lblMissed.TabIndex = 5;
-            this.lblMissed.Text = "update";
-            this.lblMissed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // frmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,7 +140,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmClient";
-            this.Text = "Client";
+            this.Text = "Client2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmClient_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

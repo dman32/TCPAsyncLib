@@ -12,20 +12,25 @@ namespace TCPAsyncLib
     public partial class frmServer : Form
     {
         private static System.Timers.Timer tmrUpdate = new System.Timers.Timer(), tmrSend = new System.Timers.Timer();
-        private static int cntUpdate = 0, cntRec = 0, cntSend = 0, heartbeatPort = 2055, heartbeatBytes = 1024;
+        private static int cntUpdate = 0, cntRec = 0, cntSend = 0, cntMissed = 0, heartbeatPort = 2056, heartbeatBytes = 1024;
         private const string heartbeatName = "heartbeatserver";
+        private static SEALib.TCP.SOCKET server = new SEALib.TCP.SOCKET();
 
         public frmServer()
         {
             InitializeComponent();
-            tmrUpdate.Interval = 10;
+            tmrUpdate.Interval = 100;
             tmrUpdate.Elapsed += new System.Timers.ElapsedEventHandler(tmrUpdate_Elapsed);
             tmrUpdate.Start();
-            tmrSend.Interval = 10;
+            tmrSend.Interval = 100;
             tmrSend.Elapsed += new System.Timers.ElapsedEventHandler(tmrSend_Elapsed);
             tmrSend.Start();
-            SEALib.TCP.addServer(heartbeatName, heartbeatPort, null, null, onReceive, heartbeatBytes);
+
+            server.initServer(heartbeatPort, null, null, onReceive, heartbeatBytes);
+           // server.enableHeartbeat(3, 200);
         }
+
+        
         private void frmServer_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
@@ -33,11 +38,11 @@ namespace TCPAsyncLib
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!SEALib.TCP.isListening(heartbeatName))
-                if (!SEALib.TCP.isConnected(heartbeatName))
-                    SEALib.TCP.startListening(heartbeatName);
+            if (!server.isListening)
+                if (!server.isConnected)
+                    server.startListening(0);
                 else
-                    SEALib.TCP.disconnect(heartbeatName);
+                    server.disconnect();
         }
         //DELEGATES
         public void updateControlText(Control c, string text, bool concatenate)
@@ -63,21 +68,22 @@ namespace TCPAsyncLib
         //TIMERS
         void tmrSend_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (SEALib.TCP.isConnected(heartbeatName))
-                SEALib.TCP.startSend(heartbeatName, onSend, Encoding.UTF8.GetBytes("HI"));
+            if (server.isConnected)
+                server.startSend(onSend, Encoding.UTF8.GetBytes("HI"));
         }
         void tmrUpdate_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             cntUpdate++;
             updateControlText(lblUpdate, cntUpdate.ToString(), false);
-            if (SEALib.TCP.isListening(heartbeatName))
+            updateControlText(lblMissed, server.missedHeartbeats.ToString(), false);
+            if (server.isListening)
             {
                 updateControlBackColor(pnlHeartbeat, Color.Blue);
                 if (button1.Text != "Stop Listening")
                     updateControlText(button1, "Stop Listening", false);
             }
             else
-                if (SEALib.TCP.isConnected(heartbeatName))
+                if (server.isConnected)
                 {
                     updateControlBackColor(pnlHeartbeat, Color.Green);
                     if (button1.Text != "Disconnect")
@@ -86,18 +92,17 @@ namespace TCPAsyncLib
                 else
                 {
                     updateControlBackColor(pnlHeartbeat, Color.Gray);
-                    if (button1.Text != "Listen")
-                        updateControlText(button1, "Listen", false);
+                    server.startListening(0);
                 }
 
         }
         //CALLBACKS
-        public void onReceive(String name, byte[] bytes, int rec)
+        public void onReceive(byte[] bytes, int rec)
         {
             cntRec++;
             updateControlText(lblHeartbeatRec, cntRec.ToString(), false);
         }
-        public void onSend(String name)
+        public void onSend()
         {
             cntSend++;
             updateControlText(lblHeartbeatSend, cntSend.ToString(), false);

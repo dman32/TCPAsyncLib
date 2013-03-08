@@ -9,14 +9,14 @@ using System.Windows.Forms;
 
 namespace TCPAsyncLib
 {
-    public partial class frmClient : Form
+    public partial class frmClient2 : Form
     {
         private static System.Timers.Timer tmrUpdate = new System.Timers.Timer(), tmrSend = new System.Timers.Timer();
         private static int cntUpdate = 0, cntRec = 0, cntSend = 0, heartbeatPort = 2056, heartbeatBytes = 1024;
         private const string heartbeatName = "heartbeatclient";
         private static SEALib.TCP.SOCKET client = new SEALib.TCP.SOCKET();
 
-        public frmClient()
+        public frmClient2()
         {
             InitializeComponent();
             tmrUpdate.Interval = 100;
@@ -26,7 +26,7 @@ namespace TCPAsyncLib
             tmrSend.Elapsed += new System.Timers.ElapsedEventHandler(tmrSend_Elapsed);
             tmrSend.Start();
             
-            client.initClient("195.0.0.173", heartbeatPort, null, null, onReceive, heartbeatBytes);
+            client.initClient("195.0.0.187", heartbeatPort, null, null, onReceive, heartbeatBytes);
             client.enableHeartbeat(3, 200);
         }
         private void frmClient_FormClosing(object sender, FormClosingEventArgs e)

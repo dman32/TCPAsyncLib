@@ -13,6 +13,7 @@ namespace TCPAsyncLib
     {
         frmServer server = new frmServer();
         frmClient client = new frmClient();
+        frmClient2 client2 = new frmClient2();
         public frmMain()
         {
             InitializeComponent();
@@ -28,6 +29,12 @@ namespace TCPAsyncLib
         {
             if (!client.Visible)
                 client.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!client2.Visible)
+                client2.Show();
         }
     }
 }
