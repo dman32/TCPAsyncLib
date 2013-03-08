@@ -24,7 +24,7 @@ namespace TCPAsyncLib
             tmrSend.Interval = 10;
             tmrSend.Elapsed += new System.Timers.ElapsedEventHandler(tmrSend_Elapsed);
             tmrSend.Start();
-            SEALib.TCP.addClient(heartbeatName, "10.0.64.211", heartbeatPort, null, null, onReceive, heartbeatBytes);
+            SEALib.TCP.addClient(heartbeatName, "195.0.0.187", heartbeatPort, null, null, onReceive, heartbeatBytes);
         }
         private void frmClient_FormClosing(object sender, FormClosingEventArgs e)
         {
