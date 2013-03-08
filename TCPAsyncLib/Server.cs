@@ -40,7 +40,7 @@ namespace TCPAsyncLib
         {
             if (!server.isListening)
                 if (!server.isConnected)
-                    server.startListening(0);
+                    server.startListening(0, null);
                 else
                     server.disconnect();
         }
@@ -75,7 +75,7 @@ namespace TCPAsyncLib
         {
             cntUpdate++;
             updateControlText(lblUpdate, cntUpdate.ToString(), false);
-            updateControlText(lblMissed, server.missedHeartbeats.ToString(), false);
+            updateControlText(lblMissed, server.bufferedSends.ToString(), false);
             if (server.isListening)
             {
                 updateControlBackColor(pnlHeartbeat, Color.Blue);
@@ -92,7 +92,7 @@ namespace TCPAsyncLib
                 else
                 {
                     updateControlBackColor(pnlHeartbeat, Color.Gray);
-                    server.startListening(0);
+                    server.startListening(0, null);
                 }
 
         }

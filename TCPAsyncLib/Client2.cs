@@ -27,7 +27,7 @@ namespace TCPAsyncLib
             tmrSend.Start();
             
             client.initClient("195.0.0.187", heartbeatPort, null, null, onReceive, heartbeatBytes);
-            client.enableHeartbeat(3, 200);
+            client.enableHeartbeat(200, null);
         }
         private void frmClient_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -39,7 +39,7 @@ namespace TCPAsyncLib
             if (client.isConnected)
                 client.disconnect();
             else
-                client.startConnecting(0);
+                client.startConnecting(0, null);
         }
         //DELEGATES
         public void updateControlText(Control c, string text, bool concatenate)
@@ -74,13 +74,13 @@ namespace TCPAsyncLib
         {
             cntUpdate++;
             updateControlText(lblUpdate, cntUpdate.ToString(), false);
-            updateControlText(lblMissed, client.missedHeartbeats.ToString(), false);
+            updateControlText(lblMissed, client.bufferedSends.ToString(), false);
             if (client.isConnected)
                 updateControlBackColor(pnlHeartbeat, Color.Green);
             else
             {
                 updateControlBackColor(pnlHeartbeat, Color.Gray);
-                client.startConnecting(100);
+                client.startConnecting(100, null);
             }
         }
         //CALLBACKS
